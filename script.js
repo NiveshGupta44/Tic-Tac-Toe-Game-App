@@ -23,6 +23,7 @@ checkwinner();
 });
 });
 const checkwinner=()=>{
+    let Winner=false;
     for (let pattern of winpattern) {
         let pos1 = boxes[pattern [0]].innerText;
         let pos2 = boxes[pattern [1]].innerText;
@@ -31,9 +32,17 @@ const checkwinner=()=>{
             if(pos1===pos2&&pos2===pos3){
                 console.log("Winner",pos1);
                 showwinner(pos1);
+                Winner=true;
+                return;
             }
         }
     }
+let filledboxes =[...boxes].every(box=>box.innerText !="");
+if(filledboxes&&!Winner){
+    msg.innerText='Match is Tie';
+    msgcontainer.classList.remove("hide");
+    disable();
+}
 }
 const disable=()=>{
     for (let box of boxes) {
